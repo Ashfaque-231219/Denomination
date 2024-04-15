@@ -7,14 +7,14 @@ import '../main.dart';
 import 'package:share_plus/share_plus.dart';
 
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({Key? key});
+class HistoryDataPage extends StatefulWidget {
+  const HistoryDataPage({Key? key});
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<HistoryDataPage> createState() => _HistoryDataPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
+class _HistoryDataPageState extends State<HistoryDataPage> {
   Future<void> _deleteSavedData(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? savedKeys = prefs.getStringList('savedKeys');
@@ -242,13 +242,10 @@ void _showEditDialog(BuildContext context, Map<String, dynamic> savedData) {
   TextEditingController totalCountController =
       TextEditingController(text: savedData['totalCount'].toString());
 
-  // Define the categories
   List<String> categories = ['General', 'Expense', 'Income'];
 
-  // Initialize the selected category
   String? selectedCategory = savedData['category'];
 
-  // Ensure selected category is in categories list, otherwise default to 'General'
   if (!categories.contains(selectedCategory)) {
     selectedCategory = 'General';
   }
@@ -302,7 +299,7 @@ void _showEditDialog(BuildContext context, Map<String, dynamic> savedData) {
 
                   // Trigger UI update by popping and pushing the route again
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => HistoryPage()));
+                      MaterialPageRoute(builder: (context) => HistoryDataPage()));
                 },
               ),
             ],

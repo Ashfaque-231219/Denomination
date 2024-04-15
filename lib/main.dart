@@ -3,8 +3,6 @@ import 'package:denomination/helper/image_const.dart';
 import 'package:denomination/pages/history.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:intl/intl.dart';
 
 import 'helper/common_widget/save_dialouge.dart';
 
@@ -18,7 +16,6 @@ void main() async {
 
 Future<void> initSharedPreferences() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  // You can put any initial data setup here if needed
 }
 
 class MyApp extends StatelessWidget {
@@ -92,7 +89,6 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
 
     String result = '';
 
-    // Array of words for numbers
     List<String> units = [
       '',
       'one',
@@ -321,7 +317,7 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
     });
   }
 
-  Widget _buildRow(String denomination, TextEditingController controller, {String hintText = ''}) {
+  Widget commonTextWidget(String denomination, TextEditingController controller, {String hintText = ''}) {
     int denominationValue = int.parse(denomination);
     int count = int.tryParse(controller.text) ?? 0;
     int totalValue = denominationValue * count;
@@ -345,12 +341,12 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
                 keyboardType: TextInputType.number,
                 onChanged: (_) => _calculateTotal(),
                 decoration: InputDecoration(
-                  hintText: hintText, // Use the passed hint text or empty string if not provided
+                  hintText: hintText,
                   hintStyle: TextStyle(
                       color: Colors.white
                   ),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2.0, color: Colors.white), // Set the width and color of all borders
+                    borderSide: BorderSide(width: 2.0, color: Colors.white),
                   ),
                   filled: true,
                   fillColor: Colors.grey,
@@ -401,7 +397,7 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => HistoryPage(),
+                                    builder: (context) => HistoryDataPage(),
                                   ),
                                 );
                               },
@@ -467,15 +463,15 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
                 ],
               ),
             ),
-            _buildRow("2000", _controller2000,hintText: 'try'),
-            _buildRow("500", _controller500),
-            _buildRow("200", _controller200),
-            _buildRow("100", _controller100),
-            _buildRow("50", _controller50),
-            _buildRow("20", _controller20),
-            _buildRow("10", _controller10),
-            _buildRow("5", _controller5),
-            _buildRow("1", _controller1),
+            commonTextWidget("2000", _controller2000,hintText: 'try'),
+            commonTextWidget("500", _controller500),
+            commonTextWidget("200", _controller200),
+            commonTextWidget("100", _controller100),
+            commonTextWidget("50", _controller50),
+            commonTextWidget("20", _controller20),
+            commonTextWidget("10", _controller10),
+            commonTextWidget("5", _controller5),
+            commonTextWidget("1", _controller1),
           ],
         ),
       ),
@@ -494,7 +490,6 @@ class _CurrencyCalculatorState extends State<CurrencyCalculator> {
               ); // Custom dialog widget
             },
           );
-          // _showSaveDialog();
         },
         child: Icon(Icons.bolt),
       ),
